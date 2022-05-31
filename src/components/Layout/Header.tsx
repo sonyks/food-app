@@ -9,7 +9,7 @@ export const Header = (props: HeaderProps) => {
     <React.Fragment>
       <header className="header">
         <h1>Rect Meals</h1>
-        <HeaderCartButton />
+        <HeaderCartButton onClick={props.onShowCart} />
       </header>
       <div className="main-image">
         <img src={mealsImage} alt="A table full of delicious food!" />

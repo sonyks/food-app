@@ -1,9 +1,10 @@
 import { CartIcon } from "../Cart/CartIcon";
+import { HeaderCartButtonProps } from "./header-cart-button-props.model";
 import "./HeaderCartButton.scss";
 
-export const HeaderCartButton = () => {
+export const HeaderCartButton = (props: HeaderCartButtonProps) => {
   return (
-    <button className="button">
+    <button className="button" onClick={props.onClick}>
       <span className="icon">
         <CartIcon />
       </span>

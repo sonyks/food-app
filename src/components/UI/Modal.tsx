@@ -3,8 +3,8 @@ import "./Modal.scss";
 import { createPortal } from "react-dom";
 import { useEffect, useRef } from "react";
 
-const Backdrop = () => {
-  return <div className="backdrop"></div>;
+const Backdrop = (props: ModalProps) => {
+  return <div className="backdrop" onClick={props.onClose}></div>;
 };
 
 const ModalOverlay = (props: ModalProps) => {
@@ -28,8 +28,11 @@ export const Modal = (props: ModalProps) => {
 
   return (
     <>
-      {createPortal(<Backdrop />, el.current)}
-      {createPortal(<ModalOverlay children={props.children} />, el.current)}
+      {createPortal(<Backdrop onClose={props.onClose} />, el.current)}
+      {createPortal(
+        <ModalOverlay onClose={props.onClose} children={props.children} />,
+        el.current
+      )}
     </>
   );
 };
