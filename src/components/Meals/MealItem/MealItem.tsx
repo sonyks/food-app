@@ -1,8 +1,20 @@
 import "./MealItem.scss";
 import { MealItemProps } from "./meal-item-props.model";
 import { MealItemForm } from "./MealItemForm";
+import { useContext, useRef } from "react";
+import CartContext from "../../../store/cart-context";
 
 export const MealItem = (props: MealItemProps) => {
+  const amountInputRef = useRef<HTMLInputElement | null>(null);
+  const cartCtx = useContext(CartContext);
+  const addToCartHandler = (amount: number) => {
+    cartCtx.addItem({
+      id: props.id,
+      amount: amount,
+      name: props.name,
+      price: props.price,
+    });
+  };
   const price = `$${props.price.toFixed(2)}`;
   return (
     <li className="meal">
@@ -12,7 +24,7 @@ export const MealItem = (props: MealItemProps) => {
         <div className="price">{price}</div>
       </div>
       <div>
-        <MealItemForm />
+        <MealItemForm onAddToCart={addToCartHandler} amount={amountInputRef} />
       </div>
     </li>
   );
