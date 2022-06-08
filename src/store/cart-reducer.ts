@@ -1,23 +1,64 @@
+import { CartItem } from "../models/cart-item.model";
 import { CartAction, CartActionTypes } from "./cart-actions";
 import { defaultState } from "./cart-context";
 import { IState } from "./state";
 
 export const cartReducer = (state: IState, action: CartAction): IState => {
   switch (action.type) {
-    case CartActionTypes.AddCartItem:
+    case CartActionTypes.AddCartItem: {
+      const updateTotalAmount =
+        state.totalAmount + action.payload.price * action.payload.amount;
+      const existingCartItemIndex = state.items.findIndex(
+        (item) => item.id === action.payload.id
+      );
+      const existingCartItem = state.items[existingCartItemIndex];
+      let updateItem: CartItem;
+      let updatedItems: CartItem[];
+      if (existingCartItem) {
+        updateItem = {
+          ...existingCartItem,
+          amount: existingCartItem.amount + action.payload.amount,
+        } as CartItem;
+        updatedItems = [...state.items];
+        updatedItems[existingCartItemIndex] = updateItem;
+      } else {
+        updateItem = {
+          ...action.payload,
+        } as CartItem;
+        updatedItems = [...state.items, updateItem];
+      }
+
       return {
         ...state,
-        items: [...state.items, action.payload],
-        totalAmount:
-          state.totalAmount + action.payload.price * action.payload.amount,
+        items: updatedItems,
+        totalAmount: updateTotalAmount,
       };
+    }
     case CartActionTypes.RemoveCartItem:
-      const findItem = state.items.find((item) => item.id === action.payload);
-      const price = findItem ? findItem?.amount * findItem?.price : 0;
+      const existingCartItemIndex = state.items.findIndex(
+        (item) => item.id === action.payload
+      );
+      const existingCartItem = state.items[existingCartItemIndex];
+      const updateTotalAmount = state.totalAmount - existingCartItem.price;
+
+      let updatedItems: CartItem[];
+      if (existingCartItem.amount === 1) {
+        updatedItems = [
+          ...state.items.filter((item) => item.id !== action.payload),
+        ];
+      } else {
+        const updatedItem = {
+          ...existingCartItem,
+          amount: existingCartItem.amount - 1,
+        } as CartItem;
+        updatedItems = [...state.items];
+        updatedItems[existingCartItemIndex] = updatedItem;
+      }
+
       return {
         ...state,
-        items: [...state.items.filter((item) => item.id !== action.payload)],
-        totalAmount: state.totalAmount - price,
+        items: [...updatedItems],
+        totalAmount: updateTotalAmount,
       };
     default:
       return defaultState;

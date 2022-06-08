@@ -9,8 +9,12 @@ import { CartItemComponent } from "./CartItem";
 export const Cart = (props: CartProps) => {
   const cartCtx = useContext(CartContext);
 
-  const cartItemRemoveHandler = (id: string) => {};
-  const cartItemAddHandler = (item: CartItem) => {};
+  const cartItemRemoveHandler = (id: string) => {
+    cartCtx.removeItem(id);
+  };
+  const cartItemAddHandler = (item: CartItem) => {
+    cartCtx.addItem({ ...item, amount: 1 });
+  };
 
   const cartItems = (
     <ul className="cart-items">
