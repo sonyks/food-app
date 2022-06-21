@@ -1,10 +1,10 @@
 import "./MealItem.scss";
-import { MealItemProps } from "./meal-item-props.model";
 import { MealItemForm } from "./MealItemForm";
 import { useContext, useRef } from "react";
 import CartContext from "../../../store/cart-context";
+import { Meal } from "../../../models/meal.model";
 
-export const MealItem = (props: MealItemProps) => {
+export const MealItem = (props: Meal) => {
   const amountInputRef = useRef<HTMLInputElement | null>(null);
   const cartCtx = useContext(CartContext);
   const addToCartHandler = (amount: number) => {
