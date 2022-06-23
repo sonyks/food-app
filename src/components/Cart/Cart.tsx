@@ -12,7 +12,6 @@ export const Cart = (props: CartProps) => {
   const [isCheckout, setIsCheckout] = useState(false);
 
   const cartItemRemoveHandler = (id: string) => {
-    console.log(id);
     cartCtx.removeItem(id);
   };
   const cartItemAddHandler = (item: CartItem) => {
