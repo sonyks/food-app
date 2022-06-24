@@ -2,14 +2,18 @@ import { Card } from "../UI/Card";
 import "./AvailableMeals.scss";
 import { MealItem } from "./MealItem/MealItem";
 import { useEffect, useState } from "react";
-import db, { getMeals } from "../../firebase-service/firebase";
+import { getMeals } from "../../firebase-service/firebase";
 
 export const AvailableMeals = () => {
   const [mealsList, setMealLeast] = useState<JSX.Element[] | undefined>();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    getMeals(db)
+    fetchData();
+  }, []);
+
+  const fetchData = () => {
+    getMeals()
       .then((meals) => {
         const mapMeals = meals.map((meal) => (
           <MealItem
@@ -27,7 +31,7 @@ export const AvailableMeals = () => {
       .finally(() => {
         setIsLoading(false);
       });
-  }, [mealsList]);
+  };
 
   if (isLoading) {
     return (
