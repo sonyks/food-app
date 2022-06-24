@@ -1,4 +1,4 @@
-import { CartItem } from "../../models/cart-item.model";
+import { CartItem } from "../../../models/cart-item.model";
 
 export interface CartItemProps {
   item: CartItem;

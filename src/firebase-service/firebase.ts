@@ -3,7 +3,11 @@ import {
   getFirestore,
   collection,
   getDocs,
+  setDoc,
+  doc,
 } from "firebase/firestore/lite";
+import { CheckoutOrder } from "../components/Cart/models/checkout-order.model";
+
 import { Meal } from "../models/meal.model";
 
 const firebaseConfig = {
@@ -33,6 +37,13 @@ export const getMeals = async (): Promise<Meal[]> => {
   });
 
   return mealList;
+};
+
+export const createOrder = async (order: CheckoutOrder): Promise<void> => {
+  const db = getFirestore(app);
+  const ordersCol = collection(db, "orders");
+
+  await setDoc(doc(ordersCol), order);
 };
 
 export default app;

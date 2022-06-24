@@ -1,5 +1,5 @@
-import { CartItemProps } from "./cart-item-props.model";
 import "./CartItem.scss";
+import { CartItemProps } from "./models/cart-item-props.model";
 
 export const CartItemComponent = (props: CartItemProps) => {
   const price = `$${props.item.price.toFixed(2)}`;
