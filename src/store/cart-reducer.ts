@@ -60,6 +60,9 @@ export const cartReducer = (state: IState, action: CartAction): IState => {
         items: [...updatedItems],
         totalAmount: updateTotalAmount,
       };
+    case CartActionTypes.ClearItems: {
+      return defaultState;
+    }
     default:
       return defaultState;
   }

@@ -9,19 +9,24 @@ import { IState } from "./state";
 export const CartProvider = (props: Props) => {
   const [cartState, dispatchCartAction] = useReducer(cartReducer, defaultState);
 
-  const addItemToCart = (item: CartItem) => {
+  const addItemToCartHandler = (item: CartItem) => {
     dispatchCartAction({ type: CartActionTypes.AddCartItem, payload: item });
   };
 
-  const removeItemFromCart = (id: string) => {
+  const removeItemFromCartHandler = (id: string) => {
     dispatchCartAction({ type: CartActionTypes.RemoveCartItem, payload: id });
+  };
+
+  const clearCartHandler = () => {
+    dispatchCartAction({ type: CartActionTypes.ClearItems });
   };
 
   const cartContext: IState = {
     items: cartState.items,
     totalAmount: cartState.totalAmount,
-    addItem: addItemToCart,
-    removeItem: removeItemFromCart,
+    addItem: addItemToCartHandler,
+    removeItem: removeItemFromCartHandler,
+    clearItems: clearCartHandler,
   };
 
   return (

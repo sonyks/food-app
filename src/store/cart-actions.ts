@@ -3,6 +3,7 @@ import { CartItem } from "../models/cart-item.model";
 export enum CartActionTypes {
   AddCartItem = "ADD_CART_ITEM",
   RemoveCartItem = "REMOVE_ITEM",
+  ClearItems = "CLEAR_ITEMS",
 }
 
 export type CartAction =
@@ -13,4 +14,5 @@ export type CartAction =
   | {
       type: CartActionTypes.RemoveCartItem;
       payload: string;
-    };
+    }
+  | { type: CartActionTypes.ClearItems };

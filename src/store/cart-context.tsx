@@ -7,6 +7,7 @@ export const defaultState: IState = {
   totalAmount: 0,
   addItem: (item: CartItem) => {},
   removeItem: (id: any) => {},
+  clearItems: () => {},
 };
 const CartContext = createContext(defaultState);
 

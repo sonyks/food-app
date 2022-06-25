@@ -5,4 +5,5 @@ export interface IState {
   totalAmount: number;
   addItem: (item: CartItem) => void;
   removeItem: (id: string) => void;
+  clearItems: () => void;
 }

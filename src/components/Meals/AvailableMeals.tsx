@@ -9,11 +9,15 @@ export const AvailableMeals = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetchData();
+    let ignore = false;
+    fetchData(ignore);
+    return () => {
+      ignore = true;
+    };
   }, []);
 
-  const fetchData = () => {
-    getMeals()
+  const fetchData = (ignore: boolean) => {
+    getMeals(ignore)
       .then((meals) => {
         const mapMeals = meals.map((meal) => (
           <MealItem
@@ -25,7 +29,9 @@ export const AvailableMeals = () => {
           />
         ));
 
-        setMealLeast(mapMeals);
+        if (!ignore) {
+          setMealLeast(mapMeals);
+        }
       })
       .catch(console.error)
       .finally(() => {
